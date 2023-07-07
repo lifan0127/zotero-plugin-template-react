@@ -1,6 +1,7 @@
 import ZoteroToolkit from "zotero-plugin-toolkit/dist/index";
 import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTable";
 import hooks from "./hooks";
+import { config } from "../package.json";
 
 class Addon {
   public data: {
@@ -28,8 +29,8 @@ class Addon {
     this.data = {
       alive: true,
       env: __env__,
-      // ztoolkit: new MyToolkit(),
-      ztoolkit: new ZoteroToolkit(),
+      ztoolkit: new MyToolkit(),
+      // ztoolkit: new ZoteroToolkit(),
     };
     this.hooks = hooks;
     this.api = {};
@@ -55,15 +56,25 @@ import { BasicTool, unregister } from "zotero-plugin-toolkit/dist/basic";
 import { UITool } from "zotero-plugin-toolkit/dist/tools/ui";
 import { PreferencePaneManager } from "zotero-plugin-toolkit/dist/managers/preferencePane";
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
+import { ChatManager } from "./modules/chat";
+import { ProgressWindowHelper } from "zotero-plugin-toolkit/dist/helpers/progressWindow";
 
 export class MyToolkit extends BasicTool {
   UI: UITool;
+  Chat: ChatManager;
+  ProgressWindow: typeof ProgressWindowHelper;
   PreferencePane: PreferencePaneManager;
 
   constructor() {
     super();
     this.UI = new UITool(this);
+    this.Chat = new ChatManager(this);
     this.PreferencePane = new PreferencePaneManager(this);
+    this.ProgressWindow = ProgressWindowHelper;
+    this.ProgressWindow.setIconURI(
+      "default",
+      `chrome://${config.addonRef}/content/icons/favicon.png`
+    );
   }
 
   unregisterAll() {

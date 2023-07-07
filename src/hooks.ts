@@ -7,7 +7,11 @@ import {
 } from "./modules/examples";
 import { config } from "../package.json";
 import { getString, initLocale } from "./utils/locale";
-import { registerPrefsScripts } from "./modules/preferenceScript";
+import {
+  registerPrefsWindow,
+  registerPrefsScripts,
+} from "./modules/preferenceScript";
+import { chat } from "./modules/chat";
 
 async function onStartup() {
   await Promise.all([
@@ -20,6 +24,8 @@ async function onStartup() {
     "default",
     `chrome://${config.addonRef}/content/icons/favicon.png`
   );
+  registerPrefsWindow();
+  await Zotero.Promise.delay(1000);
 
   const popupWin = new ztoolkit.ProgressWindow(config.addonName, {
     closeOnClick: true,
@@ -32,45 +38,45 @@ async function onStartup() {
     })
     .show();
 
-  BasicExampleFactory.registerPrefs();
+  // BasicExampleFactory.registerPrefs();
 
-  BasicExampleFactory.registerNotifier();
+  // BasicExampleFactory.registerNotifier();
 
-  KeyExampleFactory.registerShortcuts();
+  // KeyExampleFactory.registerShortcuts();
 
-  await Zotero.Promise.delay(1000);
-  popupWin.changeLine({
-    progress: 30,
-    text: `[30%] ${getString("startup.begin")}`,
-  });
+  // await Zotero.Promise.delay(1000);
+  // popupWin.changeLine({
+  //   progress: 30,
+  //   text: `[30%] ${getString("startup.begin")}`,
+  // });
 
-  UIExampleFactory.registerStyleSheet();
+  // UIExampleFactory.registerStyleSheet();
 
-  UIExampleFactory.registerRightClickMenuItem();
+  // UIExampleFactory.registerRightClickMenuItem();
 
-  UIExampleFactory.registerRightClickMenuPopup();
+  // UIExampleFactory.registerRightClickMenuPopup();
 
-  UIExampleFactory.registerWindowMenuWithSeparator();
+  // UIExampleFactory.registerWindowMenuWithSeparator();
 
-  await UIExampleFactory.registerExtraColumn();
+  // await UIExampleFactory.registerExtraColumn();
 
-  await UIExampleFactory.registerExtraColumnWithCustomCell();
+  // await UIExampleFactory.registerExtraColumnWithCustomCell();
 
-  await UIExampleFactory.registerCustomCellRenderer();
+  // await UIExampleFactory.registerCustomCellRenderer();
 
-  await UIExampleFactory.registerCustomItemBoxRow();
+  // await UIExampleFactory.registerCustomItemBoxRow();
 
-  UIExampleFactory.registerLibraryTabPanel();
+  // UIExampleFactory.registerLibraryTabPanel();
 
-  await UIExampleFactory.registerReaderTabPanel();
+  // await UIExampleFactory.registerReaderTabPanel();
 
-  PromptExampleFactory.registerNormalCommandExample();
+  // PromptExampleFactory.registerNormalCommandExample();
 
-  PromptExampleFactory.registerAnonymousCommandExample();
+  // PromptExampleFactory.registerAnonymousCommandExample();
 
-  PromptExampleFactory.registerConditionalCommandExample();
+  // PromptExampleFactory.registerConditionalCommandExample();
 
-  await Zotero.Promise.delay(1000);
+  // await Zotero.Promise.delay(1000);
 
   popupWin.changeLine({
     progress: 100,
@@ -78,7 +84,7 @@ async function onStartup() {
   });
   popupWin.startCloseTimer(5000);
 
-  addon.hooks.onDialogEvents("dialogExample");
+  // addon.hooks.onDialogEvents("dialogExample");
 }
 
 function onShutdown(): void {
@@ -101,15 +107,15 @@ async function onNotify(
 ) {
   // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
-  if (
-    event == "select" &&
-    type == "tab" &&
-    extraData[ids[0]].type == "reader"
-  ) {
-    BasicExampleFactory.exampleNotifierCallback();
-  } else {
-    return;
-  }
+  // if (
+  //   event == "select" &&
+  //   type == "tab" &&
+  //   extraData[ids[0]].type == "reader"
+  // ) {
+  //   BasicExampleFactory.exampleNotifierCallback();
+  // } else {
+  //   return;
+  // }
 }
 
 /**
@@ -130,15 +136,15 @@ async function onPrefsEvent(type: string, data: { [key: string]: any }) {
 
 function onShortcuts(type: string) {
   switch (type) {
-    case "larger":
-      KeyExampleFactory.exampleShortcutLargerCallback();
-      break;
-    case "smaller":
-      KeyExampleFactory.exampleShortcutSmallerCallback();
-      break;
-    case "confliction":
-      KeyExampleFactory.exampleShortcutConflictingCallback();
-      break;
+    // case "larger":
+    //   KeyExampleFactory.exampleShortcutLargerCallback();
+    //   break;
+    // case "smaller":
+    //   KeyExampleFactory.exampleShortcutSmallerCallback();
+    //   break;
+    // case "confliction":
+    //   KeyExampleFactory.exampleShortcutConflictingCallback();
+    //   break;
     default:
       break;
   }
@@ -147,20 +153,22 @@ function onShortcuts(type: string) {
 function onDialogEvents(type: string) {
   switch (type) {
     case "dialogExample":
-      HelperExampleFactory.dialogExample();
+      chat();
       break;
-    case "clipboardExample":
-      HelperExampleFactory.clipboardExample();
-      break;
-    case "filePickerExample":
-      HelperExampleFactory.filePickerExample();
-      break;
-    case "progressWindowExample":
-      HelperExampleFactory.progressWindowExample();
-      break;
-    case "vtableExample":
-      HelperExampleFactory.vtableExample();
-      break;
+    //   HelperExampleFactory.dialogExample();
+    //   break;
+    // case "clipboardExample":
+    //   HelperExampleFactory.clipboardExample();
+    //   break;
+    // case "filePickerExample":
+    //   HelperExampleFactory.filePickerExample();
+    //   break;
+    // case "progressWindowExample":
+    //   HelperExampleFactory.progressWindowExample();
+    //   break;
+    // case "vtableExample":
+    //   HelperExampleFactory.vtableExample();
+    //   break;
     default:
       break;
   }

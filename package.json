@@ -1,15 +1,15 @@
 {
-  "name": "zotero-addon-template",
+  "name": "zotero-addon-template-react",
   "version": "0.1.6",
-  "description": "Zotero Addon Template",
+  "description": "Zotero Addon Template React",
   "config": {
-    "addonName": "Zotero Addon Template",
-    "addonID": "addontemplate@euclpts.com",
-    "addonRef": "addontemplate",
-    "addonInstance": "AddonTemplate",
-    "prefsPrefix": "extensions.zotero.addontemplate",
-    "releasepage": "https://github.com/windingwind/zotero-addon-template/releases/latest/download/zotero-addon-template.xpi",
-    "updaterdf": "https://raw.githubusercontent.com/windingwind/zotero-addon-template/bootstrap/update.json"
+    "addonName": "Zotero Addon Template React",
+    "addonID": "addontemplatereact@euclpts.com",
+    "addonRef": "addontemplatereact",
+    "addonInstance": "AddonTemplateReact",
+    "prefsPrefix": "extensions.zotero.addontemplatereact",
+    "releasepage": "https://github.com/lifan0127/zotero-addon-template-react/releases/latest/download/zotero-addon-template-react.xpi",
+    "updaterdf": "https://raw.githubusercontent.com/lifan0127/zotero-addon-template-react/bootstrap/update.json"
   },
   "main": "src/index.ts",
   "scripts": {
